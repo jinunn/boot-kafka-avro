@@ -1,117 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.0</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
-    <groupId>com.jinunn.kraft</groupId>
-    <artifactId>boot-kafka-avro</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>boot-kafka-avro</name>
-    <description>boot-kafka-avro</description>
-
-    <properties>
-        <java.version>17</java.version>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!--lombok-->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <!--kafka-->
-        <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
-            <version>3.0.7</version>
-        </dependency>
-
-        <!--avro-->
-        <dependency>
-            <groupId>org.apache.avro</groupId>
-            <artifactId>avro</artifactId>
-            <version>1.11.1</version>
-        </dependency>
-        <dependency>
-            <groupId>io.confluent</groupId>
-            <artifactId>kafka-avro-serializer</artifactId>
-            <version>7.4.0</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/io.confluent/kafka-schema-registry-client -->
-        <!--schema-registry-client-->
-        <dependency>
-            <groupId>io.confluent</groupId>
-            <artifactId>kafka-schema-registry-client</artifactId>
-            <version>7.4.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-        </dependency>
-    </dependencies>
-
-    <!--schema-registry-client 远程仓库-->
-    <repositories>
-        <!-- other maven repositories the project -->
-        <repository>
-            <id>confluent</id>
-            <url>https://packages.confluent.io/maven/</url>
-        </repository>
-    </repositories>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.avro</groupId>
-                <artifactId>avro-maven-plugin</artifactId>
-                <version>1.11.1</version>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>schema</goal>
-                        </goals>
-                        <configuration>
-                            <!--schema 文件所在目录-->
-                            <sourceDirectory>${project.basedir}/src/main/resources/avro/</sourceDirectory>
-                            <!--根据schema 文件生成的类文件目录-->
-                            <outputDirectory>${project.basedir}/src/main/java/</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
-</project>
+<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">    <modelVersion>4.0.0</modelVersion>    <parent>        <groupId>org.springframework.boot</groupId>        <artifactId>spring-boot-starter-parent</artifactId>        <version>3.1.0</version>        <relativePath/> <!-- lookup parent from repository -->    </parent>    <groupId>com.jinunn.kraft</groupId>    <artifactId>boot-kafka-avro</artifactId>    <version>0.0.1-SNAPSHOT</version>    <name>boot-kafka-avro</name>    <description>boot-kafka-avro</description>    <properties>        <java.version>17</java.version>    </properties>    <dependencies>        <dependency>            <groupId>org.springframework.boot</groupId>            <artifactId>spring-boot-starter-web</artifactId>        </dependency>        <dependency>            <groupId>org.springframework.boot</groupId>            <artifactId>spring-boot-starter-test</artifactId>            <scope>test</scope>        </dependency>        <!--lombok-->        <dependency>            <groupId>org.projectlombok</groupId>            <artifactId>lombok</artifactId>            <optional>true</optional>        </dependency>        <!--kafka-->        <dependency>            <groupId>org.springframework.kafka</groupId>            <artifactId>spring-kafka</artifactId>            <version>3.0.7</version>        </dependency>        <!--avro-->        <dependency>            <groupId>org.apache.avro</groupId>            <artifactId>avro</artifactId>            <version>1.11.1</version>        </dependency>        <dependency>            <groupId>io.confluent</groupId>            <artifactId>kafka-avro-serializer</artifactId>            <version>7.4.0</version>        </dependency>        <!-- https://mvnrepository.com/artifact/io.confluent/kafka-schema-registry-client -->        <!--schema-registry-client-->        <dependency>            <groupId>io.confluent</groupId>            <artifactId>kafka-schema-registry-client</artifactId>            <version>7.4.0</version>        </dependency>        <dependency>            <groupId>com.fasterxml.jackson.core</groupId>            <artifactId>jackson-core</artifactId>        </dependency>    </dependencies>    <!--schema-registry-client 远程仓库-->    <repositories>        <!-- other maven repositories the project -->        <repository>            <id>confluent</id>            <url>https://packages.confluent.io/maven/</url>        </repository>    </repositories>    <build>        <plugins>            <plugin>                <groupId>org.apache.avro</groupId>                <artifactId>avro-maven-plugin</artifactId>                <version>1.11.1</version>                <executions>                    <execution>                        <phase>generate-sources</phase>                        <goals>                            <goal>schema</goal>                        </goals>                        <configuration>                            <!--schema 文件所在目录-->                            <sourceDirectory>${project.basedir}/src/main/resources/avro/</sourceDirectory>                            <!--根据schema 文件生成的类文件目录-->                            <outputDirectory>${project.basedir}/src/main/java/</outputDirectory>                        </configuration>                    </execution>                </executions>            </plugin>            <plugin>                <groupId>org.springframework.boot</groupId>                <artifactId>spring-boot-maven-plugin</artifactId>                <configuration>                    <excludes>                        <exclude>                            <groupId>org.projectlombok</groupId>                            <artifactId>lombok</artifactId>                        </exclude>                    </excludes>                </configuration>            </plugin>        </plugins>    </build></project>
