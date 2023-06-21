@@ -1,0 +1,47 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: kafka
+
+  kafka:
+    bootstrap-servers: xx.xx.xx.xx:9092,xx.xx.xx.xx:9192,xx.xx.xx.xx:9292
+    producer:
+      key-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      # ack策略
+      # 0：生产者发送消息就不管了，效率高，但是容易丢数据，且没有重试机制
+      # 1：消息发送到Leader并落盘后就返回，如果Leader挂了并且Follower还没有同步数据就会丢失数据
+      #-1：消息要所有副本都罗盘才返回，保证数据不丢失（但是有可能重复消费）
+      acks: 1
+      # 失败重试次数
+      retries: 3
+      # 批量提交的数据大小
+      batch-size: 16384
+      # 生产者暂存数据的缓冲区大小
+      buffer-memory: 33554432
+    consumer:
+      key-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      # 是否自动提交偏移量，如果要手动确认消息，就要设置为false
+      enable-auto-commit: false
+      # 消费消息后间隔多长时间提交偏移量（ms）
+      auto-commit-interval: 100
+      # 默认的消费者组，如果不指定就会用这个
+      group-id: groupId
+      # kafka意外宕机时的消息消费策略
+      # earliest:当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，从头开始消费
+      # latest:当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，消费新产生的该分区下的数据
+      # none:topic各分区都存在已提交的offset时，从offset后开始消费；只要有一个分区不存在已提交的offset，则抛出异常
+      auto-offset-reset: latest
+    listener:
+      # 手动确认消息
+      ack-mode: manual_immediate
+      # 消费者运行的线程数
+      concurrency: 2
+    properties:
+      # schema 地址
+      schema:
+        registry:
+          url: http://xx.xx.xx.xx:8081
